@@ -30,8 +30,8 @@ namespace mlir {
 inline void registerXLADialects() {
   static bool init_once = []() {
     registerDialect<mlir::mhlo::XlaHloDialect>();
-    registerDialect<mlir::xla_chlo::XlaHloClientDialect>();
-    registerDialect<mlir::xla_lhlo::XlaLhloDialect>();
+    registerDialect<mlir::chlo::HloClientDialect>();
+    registerDialect<mlir::lmhlo::LmhloDialect>();
     return true;
   }();
   (void)init_once;
