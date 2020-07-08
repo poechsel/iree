@@ -934,7 +934,7 @@ struct ReduceRegionXLAOpConversion final
                                  OpTy>::ReduceRegionOpConversion;
   static Operation *apply(OpTy op, ArrayRef<Value> operands,
                           ConversionPatternRewriter &rewriter) {
-    Value result = xla_lhlo::XlaOpToStdScalarOp::map<OpTy>(
+    Value result = lmhlo::XlaOpToStdScalarOp::map<OpTy>(
         op, operands[0].getType(), operands, &rewriter);
     return result.getDefiningOp();
   }
@@ -1413,7 +1413,7 @@ void ConvertHLOToLinalgOnBuffersPass::runOnFunction() {
 
   ConversionTarget target(*context);
   // Make sure all XLA HLO ops are converted to Linalg ops after this pass.
-  target.addIllegalDialect<mhlo::XlaHloDialect>();
+  target.addIllegalDialect<mhlo::MhloDialect>();
   // All Linalg ops should operate on buffers. So hal.interface.*.tensor ops
   // should be gone.
   target.addIllegalOp<IREE::HAL::InterfaceLoadTensorOp,
